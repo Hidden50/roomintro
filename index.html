@@ -46,9 +46,11 @@
 <div class="ps-room ps-room-light scrollable" id="html-output">
 	<div class="chat-log hasuserlist">
 		<div class="inner">
-			<div class="notice"><div class="infobox infobox-limited" id="html-caja-output"></div></div>
-			<div class="notice">Source:</div>
-			<div class="notice"><div class="infobox"><code>/roomintro <span id="html-intro-code"></span></code></div></div>
+			<div class="notice"><div class="infobox" id="html-caja-output"></div></div>
+			<details>
+				<summary>Source</summary>
+				<div class="notice"><div class="infobox"><code>/roomintro <span id="html-intro-code"></span></code></div></div>
+			</details>
 		</div>
 
 	</div>
@@ -65,6 +67,9 @@
 <script>
 function modifyRoomIntro(action, editor) {
 	var value = editor.getSession().getValue()
+	value = value.replace(/<dd>/g, '<details style="margin:1px"><summary style="cursor: pointer"><b>')
+	value = value.replace(/<dh>/g, '</b></summary><div style="padding:5px">')
+	value = value.replace(/<\/dd>/g, '</div></details>')
 	document.getElementById('html-caja-output').innerHTML = Tools.sanitizeHTML(value)
 	var sanitizer = document.createElement('div')
 	sanitizer.innerHTML = value
